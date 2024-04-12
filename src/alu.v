@@ -20,6 +20,9 @@ module alu (
   wire [7:0] sum = accum + data_in;
   wire [7:0] diff = accum - data_in;
   wire [7:0] xored = accum ^ data_in;
+  wire [7:0] neg = ~accum;
+  wire [7:0] shl = accum << data_in;
+  wire [7:0] shr = accum >> data_in;
 
   assign data_out = result ? status : accum;
 
@@ -71,6 +74,27 @@ module alu (
           status[0] <= xored == 0;
           status[1] <= xored[7];
           status[2] <= 0;
+        end
+        // not
+        4'h7: begin
+          accum <= neg;
+          status[0] <= neg == 0;
+          status[1] <= neg[7];
+          status[2] <= 0;
+        end
+        // shl
+        4'h8: begin
+          accum <= shl;
+          status[0] <= shl == 0;
+          status[1] <= shl[7];
+          status[2] <= accum[7];
+        end
+        // shr
+        4'h9: begin
+          accum <= shr;
+          status[0] <= shr == 0;
+          status[1] <= shr[7];
+          status[2] <= accum[0];
         end
       endcase
     end
