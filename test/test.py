@@ -45,3 +45,88 @@ async def test_project(dut):
   dut.uio_in.value = 15
   await ClockCycles(dut.clk, 2)
   assert dut.uo_out.value == 4
+
+  dut.ui_in.value = 1
+  dut.uio_in.value = 3
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 0
+
+  dut.uio_in.value = 15
+  await ClockCycles(dut.clk, 2)
+  assert dut.uo_out.value == 1
+
+  dut.ui_in.value = 1
+  dut.uio_in.value = 3
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 255
+
+  dut.uio_in.value = 15
+  await ClockCycles(dut.clk, 2)
+  assert dut.uo_out.value == 6
+
+  dut.ui_in.value = 1
+  dut.uio_in.value = 3
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 254
+
+  dut.uio_in.value = 15
+  await ClockCycles(dut.clk, 2)
+  assert dut.uo_out.value == 2
+
+  dut.ui_in.value = 0
+  dut.uio_in.value = 1
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 0
+
+  dut.uio_in.value = 15
+  await ClockCycles(dut.clk, 2)
+  assert dut.uo_out.value == 1
+
+  dut.ui_in.value = 253
+  dut.uio_in.value = 1
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 253
+
+  dut.uio_in.value = 15
+  await ClockCycles(dut.clk, 2)
+  assert dut.uo_out.value == 2
+
+  dut.uio_in.value = 4
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 0
+
+  dut.uio_in.value = 15
+  await ClockCycles(dut.clk, 2)
+  assert dut.uo_out.value == 1
+
+  dut.uio_in.value = 5
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 1
+
+  dut.uio_in.value = 15
+  await ClockCycles(dut.clk, 2)
+  assert dut.uo_out.value == 0
+
+  dut.ui_in.value = 0x16
+  dut.uio_in.value = 1
+  await ClockCycles(dut.clk, 1)
+  dut.ui_in.value = 0xF5
+  dut.uio_in.value = 6
+  await ClockCycles(dut.clk, 1)
+  dut.uio_in.value = 0
+  await ClockCycles(dut.clk, 1)
+  assert dut.uo_out.value == 0xE3
