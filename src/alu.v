@@ -23,6 +23,8 @@ module alu (
   wire [7:0] neg = ~accum;
   wire [7:0] shl = accum << data_in;
   wire [7:0] shr = accum >> data_in;
+  wire [7:0] anded = accum & data_in;
+  wire [7:0] ored = accum | data_in;
 
   assign data_out = result ? status : accum;
 
@@ -95,6 +97,20 @@ module alu (
           status[0] <= shr == 0;
           status[1] <= shr[7];
           status[2] <= accum[0];
+        end
+        // and
+        4'hA: begin
+          accum <= anded;
+          status[0] <= anded == 0;
+          status[1] <= anded[7];
+          status[2] <= 0;
+        end
+        // or
+        4'hB: begin
+          accum <= ored;
+          status[0] <= ored == 0;
+          status[1] <= ored[7];
+          status[2] <= 0;
         end
       endcase
     end
