@@ -23,6 +23,8 @@ module tt_um_couchand_byte_alu (
   alu alu_instance(
     .clk(clk),
     .rst_n(rst_n),
+    .accum_source(uio_in[5]),
+    .value_source(uio_in[4]),
     .opcode(uio_in[3:0]),
     .data_in(ui_in),
     .data_out(uo_out)
