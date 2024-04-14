@@ -31,6 +31,9 @@ module alu (
   wire [15:0] product = left * right;
   wire mul_ovf = (product[15:8] != 8'h00) & (product[15:8] != 8'hFF);
 
+  wire [7:0] div = accum / data_in;
+  wire [7:0] mod = accum % data_in;
+
   assign data_out = result ? status : accum;
 
   always @(posedge clk) begin
@@ -123,6 +126,20 @@ module alu (
           status[0] <= product[7:0] == 0;
           status[1] <= product[7];
           status[2] <= mul_ovf;
+        end
+        // div
+        4'hD: begin
+          accum <= div;
+          status[0] <= div == 0;
+          status[1] <= div[7];
+          status[2] <= mod != 0;
+        end
+        // mod
+        4'hE: begin
+          accum <= mod;
+          status[0] <= mod == 0;
+          status[1] <= mod[7];
+          status[2] <= div != 0;
         end
       endcase
     end
